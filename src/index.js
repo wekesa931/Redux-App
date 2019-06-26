@@ -1,12 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import Reducers from './Reducers';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import App from './containers/App';
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+const createStoreWithMiddleware = applyMiddleware()(createStore)
+ReactDOM.render(
+    // connect react-redux with Provider. use store
+    <Provider store={createStoreWithMiddleware(Reducers)}>
+        <App/>
+    </Provider>, document.getElementById('root'));
+
+    // Action creators return type and payload froom the server 
+    // Reducers matchc the type and updates the redux state
+    // View is updated
+    // CSWM has all the reducers in the application
